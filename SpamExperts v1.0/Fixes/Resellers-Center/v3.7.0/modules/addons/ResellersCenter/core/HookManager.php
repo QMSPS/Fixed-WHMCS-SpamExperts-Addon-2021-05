@@ -26,7 +26,53 @@ class HookManager
         $this->hooks = $this->getHooksClasses();
         $this->registerHooks();
     }
+
+//** start Qedit
+	
+	/** 
+	 * Edit by Arjen Kocken, QMSPS, v210515.01
+	 * 
+     * Problem: Error when loading SpamExperts addon in WHMCS admin area, when ResellerCenter is activated
+	 * Fixed: Disable loading Resellers Center hooks on specified URL in admin area
+     * 
+	 **/
+  
+	$url = "https://[YOUR_WHMCS_URL]/admin/addonmodules.php?module=spamexperts*";
+	
+	// Q: Start if else statement 
+	if (!filter_var($url, FILTER_VALIDATE_URL) === false) {
     
+	// Q: Load SpamExperts and stop loading ResellerCenter directory scan for hooks
+	
+	} else {
+    
+	// Q: Start original code: ResellersCenter directory scanning for hooks to load ResellersCenter
+	
+	 /**
+     * Scan directory in order to find hook classes
+     * 
+     * @since 3.0.0
+     */
+    
+	public function getHooksClasses()
+    {
+        $files = glob(self::HOOKS_DIR.DS."*.php");
+        $hooks = array_diff($files, array ('.', '..'));      
+        
+        foreach($hooks as &$hook)
+        {
+            $hook = basename(substr($hook, 0, -4));
+        }
+        
+        return $hooks;
+    }
+	
+	// Q: Stop original code
+	
+	}	// Q: Closing if else statement
+	
+//** stopQedit**/
+	
     /**
      * Scan directory in order to find hook classes
      * 
