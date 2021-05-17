@@ -49,7 +49,7 @@ class kwspamexperts_api
     public function call($action,$format=true)
     {
         $ch = curl_init();
-	    curl_setopt($ch, CURLOPT_URL, $this->url."/api/".$action.($format?"/format/json/":""));
+	    curl_setopt($ch, CURLOPT_URL, $this->url."/api".$action.($format?"format/json/":""));
 	    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	    curl_setopt($ch, CURLOPT_USERPWD, $this->user.":".$this->pass);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -62,7 +62,7 @@ class kwspamexperts_api
         
         if($this->debug)
         {
-            logModuleCall('spamexpertsresller',$action, $this->url."/api/".$action.($format?"/format/json/":""), print_r($this->response,true));
+            logModulecall('/spamexpertsresller',$action, $this->url."/api".$action.($format?"format/json/":""), print_r($this->response,true));
         }
         
 	curl_close($ch);

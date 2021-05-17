@@ -31,7 +31,7 @@ if (!defined("WHMCS"))
 }
 
 if(! $params['configoption5']){
-    $api ->call("domain/getroute/domain/".$domain."/");
+    $api ->call("/domain/getroute/domain/".$domain."/");
     $routes = $api->getResponse();
     switch($_REQUEST['_action'])
     {
@@ -65,7 +65,7 @@ if(! $params['configoption5']){
 
 
             if($found){
-                $api ->call("domain/edit/domain/".$domain."/destinations/".str_replace('::',':',json_encode($routes['result']))."/");
+                $api ->call("/domain/edit/domain/".$domain."/destinations/".str_replace('::',':',json_encode($routes['result']))."/");
 
                 if($api->isSuccess())
                     $_SESSION['spam_status'] = array('code'=>1,'msg'=>$vars['lang']['route_removed']);
@@ -88,7 +88,7 @@ if(! $params['configoption5']){
                 }
 
                 $routes['result'][] = $_POST['route']['hostname'].":".$_POST['route']['port'];
-                $api ->call("domain/edit/domain/".$domain."/destinations/".json_encode($routes['result'])."/");
+                $api ->call("/domain/edit/domain/".$domain."/destinations/".json_encode($routes['result'])."/");
                 if($api->isSuccess())
                     $_SESSION['spam_status'] = array('code'=>1,'msg'=>$vars['lang']['route_added']);
                 else 
@@ -102,7 +102,7 @@ if(! $params['configoption5']){
 
 
 
-    $api ->call("domain/getroute/domain/".$domain."/");
+    $api ->call("/domain/getroute/domain/".$domain."/");
     if ($api->isSuccess())
     {
         $vars['domainroutes'] = array();

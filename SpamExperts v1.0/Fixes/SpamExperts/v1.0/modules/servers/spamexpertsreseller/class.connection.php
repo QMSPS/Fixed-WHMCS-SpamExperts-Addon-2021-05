@@ -56,7 +56,7 @@ class spamexperts_api
     public function call($action)
     {
         $ch = curl_init();
-	curl_setopt($ch, CURLOPT_URL, $this->url."/api/".$action."/format/json/");
+	curl_setopt($ch, CURLOPT_URL, $this->url."/api".$action."format/json/");
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 	curl_setopt($ch, CURLOPT_USERPWD, $this->user.":".$this->pass);
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
@@ -67,7 +67,7 @@ class spamexperts_api
         
         if($this->debug)
         {
-            logModuleCall('spamexpertsresller',$action, $this->url."/api/".$action."/format/json/", print_r($this->response,true));
+            logModulecall('/spamexpertsresller',$action, $this->url."/api".$action."format/json/", print_r($this->response,true));
         }
         
         if(isset($this->response['messages']['error'][0])) 

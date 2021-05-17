@@ -87,14 +87,14 @@ function kwspamexperts_CreateAccount($params)
     if(empty($domain)){
         return "Domain cannot be empty. Please enter domain name in Domain field.";
     }
-    $api->call("domain/add/domain/".$domain."/");
+    $api->call("/domain/add/domain/".$domain."/");
     if ($api->isError())
     {
         return $api->error();
     }
         
         // add email
-	$api->call("domainuser/add/domain/".$domain."/password/".rawurlencode($password)."/email/".rawurlencode($email)."/");
+	$api->call("/domainuser/add/domain/".$domain."/password/".rawurlencode($password)."/email/".rawurlencode($email)."/");
 	if ($api->isError())
     {
         return $api->error();
@@ -103,7 +103,7 @@ function kwspamexperts_CreateAccount($params)
     $outgoing = $params["configoption1"] != 'Incoming' ? 1 : 0;
     $incoming = $params["configoption1"] != 'Outgoing' ? 1 : 0;
 
-	$api->call("domain/setproducts/domain/".$domain."/incoming/".$incoming."/outgoing/".$outgoing."/archiving/$archiving/");
+	$api->call("/domain/setproducts/domain/".$domain."/incoming/".$incoming."/outgoing/".$outgoing."/archiving/$archiving/");
 	if ($api->isError())
         {
             return $api->error();
@@ -132,7 +132,7 @@ function kwspamexperts_TerminateAccount($params)
         if(empty($domain)){
             return "Domain cannot be empty. Please enter domain name in Domain field.";
         }
-        $api ->call("domain/remove/domain/".$domain."/");
+        $api ->call("/domain/remove/domain/".$domain."/");
         
         if ($api->isError())
         {
@@ -160,7 +160,7 @@ function kwspamexperts_ChangePackage($params) {
         if(empty($domain)){
             return "Domain cannot be empty. Please enter domain name in Domain field.";
         }        
-        $api ->call("domain/setproducts/domain/".$domain."/incoming/".$incoming."/outgoing/".$outgoing."/archiving/$archiving/");
+        $api ->call("/domain/setproducts/domain/".$domain."/incoming/".$incoming."/outgoing/".$outgoing."/archiving/$archiving/");
         
         if ($api->isSuccess())
         {
@@ -178,7 +178,7 @@ function kwspamexperts_SuspendAccount($params)
         if(empty($domain)){
             return "Domain cannot be empty. Please enter domain name in Domain field.";
         }        
-        $api ->call("domain/whitelistrecipient/domain/".$domain."/recipient/*/",false);
+        $api ->call("/domain/whitelistrecipient/domain/".$domain."/recipient/*/",false);
         
         if ($api->isSuccess())
         {
@@ -195,7 +195,7 @@ function kwspamexperts_UnsuspendAccount($params)
         if(empty($domain)){
             return "Domain cannot be empty. Please enter domain name in Domain field.";
         }        
-        $api ->call("domain/unwhitelistrecipient/domain/".$domain."/recipient/*/",false);
+        $api ->call("/domain/unwhitelistrecipient/domain/".$domain."/recipient/*/",false);
         
         if ($api->isSuccess())
         {
@@ -305,7 +305,7 @@ function kwspamexperts_ClientArea($params) {
     $api = new kwspamexperts_api($params);
     $output['vars']['lang'] = $lang['mainsite'];
     $domain = !empty($params["customfields"]["Domain"]) ? $params["customfields"]["Domain"] : $params['domain'];
-    $api->call("authticket/create/username/{$domain}/");
+    $api->call("/authticket/create/username/{$domain}/");
 
     $api_url = (strpos($params['configoption2'], 'http') !== false)
         ? $params['configoption2']

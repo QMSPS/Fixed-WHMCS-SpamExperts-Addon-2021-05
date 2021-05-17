@@ -117,7 +117,7 @@ function spamexpertsreseller_TerminateAccount($params)
 {
         include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'class.connection.php');
         $api = new spamexperts_api($params);
-        $api ->call("reseller/remove/username/".$params['username']."/");
+        $api ->call("/reseller/remove/username/".$params['username']."/");
         
         if ($api->isSuccess())
             return "success";
@@ -136,7 +136,7 @@ function spamexpertsreseller_TerminateAccount($params)
 function spamexpertsreseller_ChangePackage($params) {
         include_once(dirname(__FILE__).DIRECTORY_SEPARATOR.'class.connection.php');
         $api = new spamexperts_api($params);
-        $api ->call("reseller/update/username/".$params['username']."/password/".rawurlencode($params['password'])."/domainslimit/".$params['configoption4']."/api_usage/".($params['configoption5']=='on' ? 1 : 0)."/");
+        $api ->call("/reseller/update/username/".$params['username']."/password/".rawurlencode($params['password'])."/domainslimit/".$params['configoption4']."/api_usage/".($params['configoption5']=='on' ? 1 : 0)."/");
         
         if ($api->isSuccess())
         {
@@ -160,7 +160,7 @@ function spamexpertsreseller_ClientArea($params) {
     $auth = '';
      
     $api = new spamexperts_api($params);
-    $api->call("authticket/create/username/".$params['username']."/");
+    $api->call("/authticket/create/username/".$params['username']."/");
 
     if ($api->isSuccess()) {
         $res  = $api->getResponse();
@@ -168,7 +168,7 @@ function spamexpertsreseller_ClientArea($params) {
     }
 
     $url = (strpos($params['configoption1'], 'http') === false)
-        ? 'http://'.$params['configoption1']
+        ? 'https://'.$params['configoption1']
         : $params['configoption1'];
 
     $output['vars']['api_url'] = $url.'/?authticket='.$auth;

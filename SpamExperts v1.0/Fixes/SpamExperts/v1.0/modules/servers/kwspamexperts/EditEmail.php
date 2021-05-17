@@ -32,7 +32,7 @@ if (!defined("WHMCS")) {
 if(! $params['configoption6']){
     if(isset($_POST['primaryemail'])){
 
-        $api->call('domaincontact/set/domain/'.$domain.'/email/'.$_POST['primaryemail'].'/');
+        $api->call('/domaincontact/set/domain/'.$domain.'/email/'.$_POST['primaryemail'].'/');
         if ($api->isSuccess())
             $vars['_status'] = array('code'=>1,'msg'=>$vars['lang']['email_changed']);
         else 
@@ -40,7 +40,7 @@ if(! $params['configoption6']){
     }
 
     if(isset($_POST['adminemail'])){
-        $api->call('domainadmincontact/set/domain/'.$domain.'/email/'.$_POST['adminemail'].'/');
+        $api->call('/domainadmincontact/set/domain/'.$domain.'/email/'.$_POST['adminemail'].'/');
         if ($api->isSuccess())
             $vars['_status'] = array('code'=>1,'msg'=>$vars['lang']['email_changed']);
         else 
@@ -48,13 +48,13 @@ if(! $params['configoption6']){
     }
 
 
-    $api ->call("domaincontact/get/domain/".$domain."/");
+    $api ->call("/domaincontact/get/domain/".$domain."/");
     if ($api->isSuccess())
     {
         $vars['primarycontact'] = $api->getResponse();
     }
 
-    $api ->call("domainadmincontact/get/domain/'.$domain.'/");
+    $api ->call("/domainadmincontact/get/domain/'.$domain.'/");
     if ($api->isSuccess())
     {
         $vars['admincontact'] = $api->getResponse();

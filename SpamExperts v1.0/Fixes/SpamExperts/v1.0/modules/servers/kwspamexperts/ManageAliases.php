@@ -34,7 +34,7 @@ if (!defined("WHMCS"))
 switch($_REQUEST['_action'])
 {
     case 'addalias':
-	$api->call("domainalias/add/domain/".$domain."/alias/".$_POST['alias']['new']."/");
+	$api->call("/domainalias/add/domain/".$domain."/alias/".$_POST['alias']['new']."/");
 	if ($api->isSuccess())
             $vars['_status']  = array('code'=>1,'msg'=>$vars['lang']['alias_added']);
         else 
@@ -45,7 +45,7 @@ switch($_REQUEST['_action'])
         {
             foreach($_POST['alias']['old_list'] as $val)
             {
-                $api->call("domainalias/remove/domain/".$domain."/alias/".$val."/");
+                $api->call("/domainalias/remove/domain/".$domain."/alias/".$val."/");
                 if ($api->isSuccess())
                 {
                     $status .= $vars['lang']['alias_removed']."<br />";
@@ -57,7 +57,7 @@ switch($_REQUEST['_action'])
             
             $vars['_status']  = array('code'=>1,'msg'=> $status);
         } else if(isset($_POST['delete-item'])) {
-            $api->call("domainalias/remove/domain/".$domain."/alias/".array_shift(array_keys($_POST['delete-item']))."/");
+            $api->call("/domainalias/remove/domain/".$domain."/alias/".array_shift(array_keys($_POST['delete-item']))."/");
             if ($api->isSuccess())
                 $vars['_status']  = array('code'=>1,'msg'=>$vars['lang']['alias_removed']);
             else 
@@ -69,7 +69,7 @@ switch($_REQUEST['_action'])
         
 }
 
-$api ->call("domainalias/list/domain/".$domain."/");
+$api ->call("/domainalias/list/domain/".$domain."/");
 
 if ($api->isSuccess())
 {
