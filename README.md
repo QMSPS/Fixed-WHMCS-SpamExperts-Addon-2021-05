@@ -1,4 +1,4 @@
-# Fix-WHMCS-SpamExperts-Addon-v1.0-API-2021-05
+# Fixed-WHMCS-SpamExperts-Addon-2021-05
 WHMCS is like your own personal hell some times, here I will try to share some small but life saving fixes
 
 ## Fixes
